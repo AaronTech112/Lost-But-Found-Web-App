@@ -1,0 +1,87 @@
+body {
+    background-color: white;
+    color: #57430E;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Added */
+}
+
+header {
+    background-color: #57430E;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header .logoSec .logo {
+    color: #fff;
+}
+
+header .searchBar {
+    display: none;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 50px;
+}
+
+.container h3 {
+    padding: 30px 0px;
+    font-size: 30px;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+form {
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #57430E;
+    border-radius: 3px;
+}
+
+textarea {
+    height: 150px;
+}
+
+button {
+    background-color: #57430E;
+    color: white;
+    border: none;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #46370B;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .container h3 {
+        font-size: 20px;
+        padding-left: 20px;
+    }
+}

@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report</title>
+    <link rel="stylesheet" href="{% static '/css/report2.css' %}">
+    <link rel="stylesheet" href="{% static '/css/report.css' %}">
+</head>
+
+<body>
+    <!-- Header and Sidebar Navigation Code -->
+    <header>
+        <div class="logoSec">
+            <div class="logo">LostButFound</div>
+            <img src="{% static '/img/menuBarIcon.png' %}" class="icn menuIcn" id="menuIcn" alt="menu-icon">
+        </div>
+
+        <div class="searchBar">
+            <input type="text" placeholder="Search for an item">
+            <div class="searchBtn">
+                <a href="#"><img src="{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-icon"></a>
+            </div>
+        </div>
+
+        <div class="message">
+            <div class="circle"></div>
+            <a href="#"><img src="{% static '/img/notIcon.png' %}" class="icn" alt=""></a>
+            <div class="dp">
+                <a href="{% url 'profile' %}"><img src="{% static '/img/dpImage.png' %}" class="dpIcn" alt="dp"></a>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <div class="navContainer">
+            <nav class="nav">
+                <div class="nav-upper-options">
+                    <a href="{% url 'dashboard' %}" class="option-link">
+                        <div class="nav-option option1">
+                            <img src="{% static '/img/dbIcon.png' %}" class="nav-img" alt="dashboard">
+                            <h3>Dashboard</h3>
+                        </div>
+                    </a>
+                    <a href="{% url 'report' %}" class="option-link">
+                        <div class="nav-option option3">
+                            <img src="{% static '/img/rpIcon.png' %}" class="nav-img" alt="report">
+                            <h3>Report</h3>
+                        </div>
+                    </a>
+                    <a href="{% url 'profile' %}" class="option-link">
+                        <div class="nav-option option5">
+                            <img src="{% static '/img/prIcon.png' %}" class="nav-img" alt="blog">
+                            <h3>Profile</h3>
+                        </div>
+                    </a>
+                    <a href="" class="option-link">
+                        <div class="nav-option option6">
+                            <img src="{% static '/img/setIcon.png' %}" class="nav-img" alt="settings">
+                            <h3>Settings</h3>
+                        </div>
+                    </a>
+                    <a href="{% url 'login' %}" class="option-link">
+                        <div class="nav-option logout">
+                            <img src="{% static '/img/logIcon.png' %}" class="nav-img" alt="logout">
+                            <h3>Logout</h3>
+                        </div>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Report Form -->
+        <div class="container">
+            <h3>Report an Item</h3>
+            <form>
+                <label for="itemName">Item Name:</label>
+                <input type="text" id="itemName" name="itemName" required>
+
+                <label for="itemDescription">Item Description:</label>
+                <textarea id="itemDescription" name="itemDescription" required></textarea>
+
+                <label for="contactEmail">Email/Phone Number:</label>
+                <input type="text" id="contactEmail" name="contactEmail" required>
+
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let menuIcn = document.querySelector(".menuIcn");
+        let nav = document.querySelector(".navContainer");
+
+        menuIcn.addEventListener("click", () => {
+            nav.classList.toggle("navclose");
+        });
+    </script>
+</body>
+
+</html>

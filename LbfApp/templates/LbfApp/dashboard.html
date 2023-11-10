@@ -1,0 +1,166 @@
+<!-- Code AJ -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title> {% block title %} Dashboard {% endblock %} </title>
+	<link rel="stylesheet" href={% static '/css/dashboard.css' %}>
+</head>
+
+<body>
+	<header>
+
+		<div class="logoSec">
+			<div class="logo">LostButFound</div>
+			<!-- The responsive menu bar icon -->
+			<img src="{% static '/img/menuBarIcon.png' %}" class="icn menuIcn" id="menuIcn" alt="menu-icon">
+		</div>
+
+		<div class="searchBar">
+			<input type="text" placeholder="Search for an Item">
+			<div class="searchBtn">
+			    <a href="#"><img src= "{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-icon"></a>
+			</div>
+		</div>
+
+		<div class="message">
+			<div class="circle"></div>
+			    <a href="#"><img src= "{% static '/img/notIcon.png' %}" class="icn" alt=""></a>
+			<!-- The profile which is also a link to the profile bar -->
+				<div class="dp">
+			    <a href="{% url 'profile' %}"><img src= "{% static '/img/dpImage.png' %}" class="dpIcn" alt="dp"></a>
+			</div>
+		</div>
+
+	</header>
+
+	<div class="main-container">
+		<div class="navContainer">
+			<nav class="nav">
+				<div class="nav-upper-options">
+					
+                    <a href="{% url 'dashboard' %}" class="option-link">
+                        <div class="nav-option option1">
+                            <img src= "{% static '/img/dbIcon.png' %}" class="nav-img" alt="dashboard">
+							<!-- The spacing before the h3 text was to fit it perfectly with it icons -->
+                            <h3> Dashboard</h3>
+                        </div>
+                    </a>
+
+					<a href="{% url 'report' %}" class="option-link">
+                        <div class="nav-option option3">
+                            <img src= "{% static '/img/rpIcon.png' %}" class="nav-img" alt="report">
+                            <h3> Report</h3>
+                        </div>
+                    </a>
+
+					<a href="{% url 'profile' %}" class="option-link">
+                        <div class="nav-option option5">
+                            <img src= "{% static '/img/prIcon.png' %}" class="nav-img" alt="blog">
+                            <h3> Profile</h3>
+                        </div>
+                    </a>
+
+                    <a href="" class="option-link">
+					<div class="nav-option option6">
+						<img src= "{% static '/img/setIcon.png' %}"	class="nav-img"	alt="settings">
+						<h3> Settings</h3>
+					</div>
+                    </a>
+					{% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="option-link">
+					<div class="nav-option logout">
+						<img src= "{% static '/img/logIcon.png' %}"	class="nav-img"	alt="logout">
+						<h3> Logout</h3>
+					</div>
+					</a>
+					{%else%}
+                    <a href="{% url 'login' %}" class="option-link">
+					<div class="nav-option logout">
+						<img src= "{% static '/img/logIcon.png' %}"	class="nav-img"	alt="logout">
+						<h3> Login</h3>
+					</div>
+                    </a>
+					{% endif %}
+
+				</div>
+			</nav>
+		</div>
+
+		<div class="main">
+
+			<div class="searchBar2">
+				<input type="text" name="" id="" placeholder="Search">
+				<div class="searchBtn">
+				    <img src= "{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-button">
+				</div>
+			</div>
+
+			<div class="box-container">
+				<div class="box box1">
+
+					<div class="text">
+						<h2 class="topic-heading">1.1k</h2>
+						<h2 class="topic">Items Found</h2>
+					</div>
+					<img src= "{% static '/img/viewIcon.png' %}" alt="Views">
+				
+                </div>
+
+				<div class="box box4">
+
+					<div class="text">
+						<h2 class="topic-heading">1.1k</h2>
+						<h2 class="topic">Items retrived</h2>
+					</div>
+					<img src="{% static '/img/itemIcon.png' %}" alt="published">
+				
+                </div>
+
+			</div>
+
+			<div class="report-container">
+
+				<div class="report-header">
+					<h1 class="recent-Articles">Recent Items</h1>
+					<a href="#"><button class="view">View All</button></a>
+				</div>
+
+				<div class="report-body">
+					<div class="report-topic-heading">
+						<h3 class="t-op">Items</h3>
+						<h3 class="t-op">Status</h3>
+						<h3 class="t-op">Contact</h3>
+					</div>
+
+					<div class="items">		
+
+						{% for item in items %}
+						<div class="item1">
+							<h3 class="t-op-nextLvl">{{item.name}}</h3>
+							<h3 class="t-op-nextLvl label-tag2">{{item.status}}</h3>
+							<a class="t-op-nextLvl label-tag t-co" href="#"><button>Complain</button></a>
+						</div>
+						{% endfor %}
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <script>
+        
+        let menuIcn = document.querySelector(".menuIcn");
+        let nav = document.querySelector(".navContainer");
+ 
+        menuIcn.addEventListener("click", () => {
+        nav.classList.toggle("navclose");
+        })
+    </script>
+</body>
+</html>

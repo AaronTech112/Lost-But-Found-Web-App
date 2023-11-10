@@ -1,0 +1,112 @@
+body {
+    background-color: white;
+    color: #57430E;
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #57430E;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.profile h1 {
+    font-size: 24px;
+}
+
+.profile p {
+    margin: 0;
+}
+
+.edit-profile {
+    margin-top: 20px;
+}
+
+.edit-profile h2 {
+    padding: 10px 0px;
+}
+
+.edit-profile form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-profile label {
+    font-weight: bold;
+}
+
+.edit-profile input[type="text"] {
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.edit-profile button {
+    background-color: #57430E;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 30px auto;
+}
+
+.edit-profile button:hover {
+    background-color: #46370B;
+}
+
+.edit-profile .form  .input {
+    height: 30px;
+    border: 1px solid #57430E;
+    font-size: 15px;
+    outline: none;
+    color: #57430E;
+    width: 600px;
+}
+
+.edit-profile .form  .input-email {
+    text-transform: lowercase;   
+}
+
+.edit-profile .form button {
+    width: 200px;
+}
+
+.form .input::placeholder {
+    font-size: 15px;
+}
+
+.logoSec .logo {
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    .edit-profile .form  .input {
+        width: 250px;
+    }
+}
