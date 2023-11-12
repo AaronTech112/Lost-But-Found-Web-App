@@ -11,17 +11,18 @@
   <body>
     <section class="container">
       <header>Login</header>
-      <form action="./dashboard.html" class="form">
-
+      <form action=" " class="form" method = "POST">
+        {% if form.errors %}<p style="color:red; font-size:15px;"> <br>Invalid Details</p><span class="main-heading " style="color:red; font-size:15px;">{{form.errors}} </span>{% else %} <span class="main-heading "><span class="highlight-text">{% endif %}</span></span>
+        {% csrf_token %}
         <div class="input-box">
           <label>Email Address</label>
-          <input type="text" placeholder="Enter email address" required />
+          <input type="text" placeholder="Enter email address" name = 'email' required />
         </div>
 
         <div class="column">
           <div class="input-box">
             <label>Password</label>
-            <input type="password" placeholder="Enter Password" required />
+            <input type="password" placeholder="Enter Password" required  name = 'password'/>
           </div>
         </div>
         <div class="input-rest">

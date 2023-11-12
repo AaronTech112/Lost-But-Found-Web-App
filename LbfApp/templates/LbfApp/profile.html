@@ -29,7 +29,7 @@
             <div class="circle"></div>
             <a href="#"><img src="{% static '/img/notIcon.png' %}" class="icn" alt=""></a>
             <div class="dp">
-                <a href="{% url 'profile' %}"><img src="{% static '/img/dpImage.png' %}" class="dpIcn" alt="dp"></a>
+                <a href="{% url 'profile' %}"><img src="{{user.profile_pic.url}}" class="dpIcn" alt="dp"></a>
             </div>
         </div>
     </header>
@@ -74,22 +74,22 @@
 
         <div class="container">
             <div class="profile">
-                <img src="{% static '/img/dpImage.png' %}" alt="User Avatar">
-                <h1>John Doe</h1>
-                <p>Email: johndoe@example.com</p>
-                <p>2222/AA/CSC/0000</p>
+                <img src="{{user.profile_pic.url}}" alt="User Avatar">
+                <h1>{{user.fullname}}</h1>
+                <p>{{user.email}}</p>
+                <p>{{user.matric_number}}</p>
             </div>
             <div class="edit-profile">
                 <h2>Edit Profile</h2>
                 <form action="./dashboard.html" class="form">
                     <label for="name">Full Name:</label>
-                    <input class="input input-name" type="text" id="name" name="name" placeholder="John Doe">
+                    <input class="input input-name" type="text" id="name" name="name" placeholder="{{user.fullname}}">
                     <label for="email">Email:</label>
-                    <input class="input input-email" type="text" id="email" name="email" placeholder="johndoe@example.com">
+                    <input class="input input-email" type="text" id="email" name="email" placeholder="{{user.email}}">
                     <label for="location">Matric Number:</label>
-                    <input class="input input-matric" type="text" id="matric" name="matric" placeholder="Matric Number">
+                    <input class="input input-matric" type="text" id="matric" name="matric" placeholder="{{user.matric_number}}">
                     <label for="location">Phone Number:</label>
-                    <input class="input input-phone" type="text" id="phone" name="phone" placeholder="Phone Number">
+                    <input class="input input-phone" type="text" id="phone" name="phone" placeholder="{{user.phone_number}}">
                     <button type="submit">Save</button>
                 </form>
             </div>

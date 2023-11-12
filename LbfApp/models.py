@@ -8,7 +8,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True, )
     matric_number = models.CharField(unique=True,max_length=255)
     phone_number = models.IntegerField(null=True, unique=True)
-    profile_pic = models.ImageField(upload_to = 'img',default='avatar.svg', null = True, blank= True)
+    profile_pic = models.ImageField(default="avatar.png",upload_to = 'img', null = True,)
     GENDER_CHOICES = (
     ('male', 'Male'),
     ('female', 'Female'),
