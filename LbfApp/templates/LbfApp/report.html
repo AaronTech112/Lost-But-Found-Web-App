@@ -89,12 +89,16 @@
         <!-- Report Form -->
         <div class="container">
             <h3>Report an Item</h3>
-            <form>
+            <form method= 'POST', action = ''>
+                {% csrf_token %}
                 <label for="itemName">Item Name:</label>
-                <input type="text" id="itemName" name="itemName" required>
+                <input type="text" id="itemName" name="name" required>
 
                 <label for="itemDescription">Item Description:</label>
-                <textarea id="itemDescription" name="itemDescription" required></textarea>
+                <textarea id="itemDescription" name="description" required></textarea>
+
+                <label for="contactEmail">Location Found:</label>
+                <input type="text" id="contactEmail" name="location_found" required>
 
                 <label for="contactEmail">Email/Phone Number:</label>
                 <input type="text" id="contactEmail" name="contactEmail" required>

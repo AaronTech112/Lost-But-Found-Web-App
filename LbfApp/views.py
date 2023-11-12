@@ -14,6 +14,15 @@ def dashboard(request):
 
 @login_required(login_url='/login')
 def report(request):
+    if request.method == "POST":
+        item = Item.objects.create(
+            user =request.user,
+            name = request.POST.get('name'),
+            description = request.POST.get('description'),
+            location_found = request.POST.get('location_found'),
+            status = 'missing',
+        )
+        return redirect('dashboard')
     return render(request,"LbfApp/report.html")
 
 @login_required(login_url='/login')
