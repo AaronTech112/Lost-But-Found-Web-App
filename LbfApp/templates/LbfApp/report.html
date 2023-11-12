@@ -30,7 +30,11 @@
             <div class="circle"></div>
             <a href="#"><img src="{% static '/img/notIcon.png' %}" class="icn" alt=""></a>
             <div class="dp">
-                <a href="{% url 'profile' %}"><img src="{% static '/img/dpImage.png' %}" class="dpIcn" alt="dp"></a>
+                {%if user.is_authenticated %}
+                <a href="{% url 'profile' %}"><img src= "{{user.profile_pic.url}}" class="dpIcn" alt="dp"></a>
+                {% else %}
+                <a href="{% url 'profile' %}"><img src= "{% static '/img/dpImage.png' %}" class="dpIcn" alt="dp"></a>
+                {% endif %}
             </div>
         </div>
     </header>
@@ -63,12 +67,21 @@
                             <h3>Settings</h3>
                         </div>
                     </a>
+					{% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="option-link">
+					<div class="nav-option logout">
+						<img src= "{% static '/img/logIcon.png' %}"	class="nav-img"	alt="logout">
+						<h3> Logout</h3>
+					</div>
+					</a>
+					{%else%}
                     <a href="{% url 'login' %}" class="option-link">
-                        <div class="nav-option logout">
-                            <img src="{% static '/img/logIcon.png' %}" class="nav-img" alt="logout">
-                            <h3>Logout</h3>
-                        </div>
+					<div class="nav-option logout">
+						<img src= "{% static '/img/logIcon.png' %}"	class="nav-img"	alt="logout">
+						<h3> Login</h3>
+					</div>
                     </a>
+					{% endif %}
                 </div>
             </nav>
         </div>

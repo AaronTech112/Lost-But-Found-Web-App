@@ -12,7 +12,7 @@
     <section class="container">
       <header>Login</header>
       <form action=" " class="form" method = "POST">
-        {% if form.errors %}<p style="color:red; font-size:15px;"> <br>Invalid Details</p><span class="main-heading " style="color:red; font-size:15px;">{{form.errors}} </span>{% else %} <span class="main-heading "><span class="highlight-text">{% endif %}</span></span>
+        {% if error_message %}<p style="color:red; font-size:15px;"> <br>{{error_message}}</p><span class="main-heading " style="color:red; font-size:15px;"></span>{% else %} <span class="main-heading "><span class="highlight-text">{% endif %}</span></span>
         {% csrf_token %}
         <div class="input-box">
           <label>Email Address</label>

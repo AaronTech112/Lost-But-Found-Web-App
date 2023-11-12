@@ -62,12 +62,21 @@
                             <h3>Settings</h3>
                         </div>
                     </a>
+					{% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="option-link">
+					<div class="nav-option logout">
+						<img src= "{% static '/img/logIcon.png' %}"	class="nav-img"	alt="logout">
+						<h3> Logout</h3>
+					</div>
+					</a>
+					{%else%}
                     <a href="{% url 'login' %}" class="option-link">
-                        <div class="nav-option logout">
-                            <img src="{% static '/img/logIcon.png' %}" class="nav-img" alt="logout">
-                            <h3>Logout</h3>
-                        </div>
+					<div class="nav-option logout">
+						<img src= "{% static '/img/logIcon.png' %}"	class="nav-img"	alt="logout">
+						<h3> Login</h3>
+					</div>
                     </a>
+					{% endif %}
                 </div>
             </nav>
         </div>

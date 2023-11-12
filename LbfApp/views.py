@@ -32,7 +32,7 @@ def login_user(request):
                 login(request,user)
                 return redirect('dashboard')
             else:
-                error_message = "Invalid Username Or Password"
+                error_message = "Invalid Email Or Password"
                 return render(request,"LbfApp/login.html",{"error_message":error_message})
 
     return render(request,"LbfApp/login.html")
