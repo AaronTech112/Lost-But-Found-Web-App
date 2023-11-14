@@ -9,6 +9,9 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title> {% block title %} Dashboard {% endblock %} </title>
 	<link rel="stylesheet" href={% static '/css/dashboard.css' %}>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -19,22 +22,32 @@
 			<!-- The responsive menu bar icon -->
 			<img src="{% static '/img/menuBarIcon.png' %}" class="icn menuIcn" id="menuIcn" alt="menu-icon">
 		</div>
-
+		
 		<div class="searchBar">
-			<input type="text" placeholder="Search for an Item">
+			<input type="text" id="searchInput" placeholder="Search name, location, description ">
 			<div class="searchBtn">
-			    <a href="#"><img src= "{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-icon"></a>
+				<a href="#" onclick="performSearch()"><img src="{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-icon"></a>
 			</div>
 		</div>
+		
+		<script>
+			function performSearch() {
+				var searchInput = document.getElementById('searchInput').value;
+				var searchUrl = '{% url "dashboard" %}?q=' + encodeURIComponent(searchInput);
+				window.location.href = searchUrl;
+			}
+		</script>
+
 
 		<div class="message">
 			<div class="circle"></div>
-			    <a href="#"><img src= "{% static '/img/notIcon.png' %}" class="icn" alt=""></a>
+			{%if user.is_authenticated %}
+				<h5>{{user.username}}</h5>
 			<!-- The profile which is also a link to the profile bar -->
 				<div class="dp">
-				{%if user.is_authenticated %}
 				<a href="{% url 'profile' %}"><img src= "{{user.profile_pic.url}}" class="dpIcn" alt="dp"></a>
 				{% else %}
+				<div class="dp">
 			    <a href="{% url 'profile' %}"><img src= "{% static '/img/dpImage.png' %}" class="dpIcn" alt="dp"></a>
 				{% endif %}
 			</div>
@@ -86,7 +99,7 @@
                     <a href="{% url 'login' %}" class="option-link">
 					<div class="nav-option logout">
 						<img src= "{% static '/img/logIcon.png' %}"	class="nav-img"	alt="logout">
-						<h3> Login</h3>
+						<h3>Login</h3>
 					</div>
                     </a>
 					{% endif %}
@@ -98,17 +111,22 @@
 		<div class="main">
 
 			<div class="searchBar2">
-				<input type="text" name="" id="" placeholder="Search">
-				<div class="searchBtn">
-				    <img src= "{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-button">
-				</div>
+				<form method="get" action="{% url 'dashboard' %}">
+					<input type="text" name="q" id="" placeholder="Search" value="{{ q }}">
+					<div class="searchBtn">
+						<button type="submit">
+							<img src="{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-button">
+						</button>
+					</div>
+				</form>
 			</div>
+			
 
 			<div class="box-container">
 				<div class="box box1">
 
 					<div class="text">
-						<h2 class="topic-heading">1.1k</h2>
+						<h2 class="topic-heading">{{items.all.count}}</h2>
 						<h2 class="topic">Items Found</h2>
 					</div>
 					<img src= "{% static '/img/viewIcon.png' %}" alt="Views">
@@ -118,7 +136,7 @@
 				<div class="box box4">
 
 					<div class="text">
-						<h2 class="topic-heading">1.1k</h2>
+						<h2 class="topic-heading">{{retrieved_items.all.count}}</h2>
 						<h2 class="topic">Items retrived</h2>
 					</div>
 					<img src="{% static '/img/itemIcon.png' %}" alt="published">
@@ -147,7 +165,11 @@
 						<div class="item1">
 							<h3 class="t-op-nextLvl">{{item.name}}</h3>
 							<h3 class="t-op-nextLvl label-tag2">{{item.status}}</h3>
-							<a class="t-op-nextLvl label-tag t-co" href="#"><button>Complain</button></a>
+							{% if item.user == request.user %}
+							<a class="t-op-nextLvl label-tag t-co" href="{% url 'update_status' item.id %}"><button>Update</button></a>
+							{% else %}
+							<a class="t-op-nextLvl label-tag t-co" href="#"><button>{{item.contact}}</button></a>
+							{% endif %}
 						</div>
 						{% endfor %}
 
@@ -156,7 +178,7 @@
 			</div>
 		</div>
 	</div>
-
+	
     <script>
         
         let menuIcn = document.querySelector(".menuIcn");

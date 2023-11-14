@@ -18,12 +18,6 @@
             <img src="{% static '/img/menuBarIcon.png' %}" class="icn menuIcn" id="menuIcn" alt="menu-icon">
         </div>
 
-        <div class="searchBar">
-            <input type="text" placeholder="Search for an item">
-            <div class="searchBtn">
-                <a href="#"><img src="{% static '/img/searchIcon.png' %}" class="icn srchIcn" alt="search-icon"></a>
-            </div>
-        </div>
 
         <div class="message">
             <div class="circle"></div>
@@ -90,15 +84,12 @@
             </div>
             <div class="edit-profile">
                 <h2>Edit Profile</h2>
-                <form action="./dashboard.html" class="form">
-                    <label for="name">Full Name:</label>
-                    <input class="input input-name" type="text" id="name" name="name" placeholder="{{user.fullname}}">
-                    <label for="email">Email:</label>
-                    <input class="input input-email" type="text" id="email" name="email" placeholder="{{user.email}}">
-                    <label for="location">Matric Number:</label>
-                    <input class="input input-matric" type="text" id="matric" name="matric" placeholder="{{user.matric_number}}">
-                    <label for="location">Phone Number:</label>
-                    <input class="input input-phone" type="text" id="phone" name="phone" placeholder="{{user.phone_number}}">
+                <form action="" method = "POST" class="form" enctype = "multipart/form-data">
+                    {% csrf_token %}
+                    {% for fields in form  %}
+                    <label for="{{fields.label}}">{{fields.label}}</label>
+                    {{fields}}
+                    {% endfor %}
                     <button type="submit">Save</button>
                 </form>
             </div>

@@ -89,7 +89,7 @@
         <!-- Report Form -->
         <div class="container">
             <h3>Report an Item</h3>
-            <form method= 'POST', action = ''>
+            <form method= 'POST' action = '' enctype="multipart/form-data">
                 {% csrf_token %}
                 <label for="itemName">Item Name:</label>
                 <input type="text" id="itemName" name="name" required>
@@ -102,6 +102,9 @@
 
                 <label for="contactEmail">Email/Phone Number:</label>
                 <input type="text" id="contactEmail" name="contactEmail" required>
+
+                <label for="itemImage">Image:</label>
+                <input type="file" id="itemImage" name="image" accept="image/*" required>
 
                 <button type="submit">Submit</button>
             </form>

@@ -27,6 +27,7 @@ class Item(models.Model):
     name = models.CharField(max_length=200)
     location_found = models.CharField(max_length=200 , blank=True)
     description = models.TextField(blank=True)
+    contact = models.CharField(max_length=200,null= True)
     image = models.ImageField(upload_to='img', default = '',blank=True)
     STATUS = (
         ('retrieved','Retrieved'),
