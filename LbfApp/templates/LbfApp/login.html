@@ -1,36 +1,41 @@
- {% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="{% static '/css/login.css' %}" >
+    <link rel="stylesheet" href="{% static '/css/login.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
     <title>Login</title>
   </head>
   <body>
-    <section class="container">
-      <header>Login</header>
-      <form action=" " class="form" method = "POST">
-        {% if error_message %}<p style="color:red; font-size:15px;"> <br>{{error_message}}</p><span class="main-heading " style="color:red; font-size:15px;"></span>{% else %} <span class="main-heading "><span class="highlight-text">{% endif %}</span></span>
-        {% csrf_token %}
-        <div class="input-box">
-          <label>Email Address</label>
-          <input type="text" placeholder="Enter email address" name = 'email' required />
-        </div>
-
-        <div class="column">
-          <div class="input-box">
-            <label>Password</label>
-            <input type="password" placeholder="Enter Password" required  name = 'password'/>
+    <div class="container">
+      <div class="wrapper">
+        <header>Login</header>
+        <form action=" " class="form" method = "POST">
+          {% if error_message %}<p style="color:red; font-size:15px;"> <br>{{error_message}}</p><span class="main-heading " style="color:red; font-size:15px;"></span>{% else %} <span class="main-heading "><span class="highlight-text">{% endif %}</span></span>
+          {% csrf_token %}
+          <div class="field email">
+            <div class="input-area">
+              <input type="text" name ="email" placeholder="Email Address">
+              <i class="icon fas fa-envelope"></i>
+            </div>
           </div>
+
+          <div class="field password">
+            <div class="input-area">
+              <input type="password" name = "password" placeholder="Password">
+              <i class="icon fas fa-lock"></i>
+            </div>
+          </div>
+          
+          <input type="submit" value="Login">
+        </form>
+        <div class="altButtons">
+          <div class="pass-txt"><a href="#">Forgot password?</a></div>
+          <div class="sign-txt"><a href="{% url 'register' %}">Create An Account</a></div>
         </div>
-        <div class="input-rest">
-            <a href="#"><h5>Forget Password</h5></a>
-            <a href="{% url 'register' %}"><h5>Create New Account</h5></a>
-        </div>
-        <button>Submit</button>
-      </form>
-    </section>
+      </div>
   </body>
 </html>

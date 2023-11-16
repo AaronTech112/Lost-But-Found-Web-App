@@ -19,7 +19,7 @@ def dashboard(request):
     items = Item.objects.filter(
         Q(status='missing') & (Q(name__icontains=q) | Q(location_found__icontains=q) | Q(description__icontains=q))
     )
-    retrieved_items = Item.objects.filter(status='retrieved')
+    retrieved_items = Item.objects.filter(status='retrieved')[0:5]
     laptop = 'laptop'
     context = {'items':items, 'laptop':laptop,'retrieved_items':retrieved_items}
     return render(request,"LbfApp/dashboard.html",context)
@@ -47,6 +47,7 @@ def update_status(request, item_id):
     item.status = 'retrieved' if item.status == 'missing' else 'missing'
     item.save()
 
+
     # Redirect back to the item's detail page or any other desired destination
     return redirect('dashboard')
 
@@ -54,13 +55,15 @@ def update_status(request, item_id):
 def profile(request):
     user = request.user
     form = UpdateUserForm(instance=user)
+
     if request.method == 'POST':
-        form = UpdateUserForm(request.POST,request.FILES,instance=user)
+        form = UpdateUserForm(request.POST, request.FILES, instance=user)
+
         if form.is_valid():
-            
             form.save()
-            return redirect('profile')    
-    return render(request,"LbfApp/profile.html",{'form':form})
+            return redirect('profile')
+
+    return render(request, "LbfApp/profile.html", {'form': form})
         
 def login_user(request):
     if request.user.is_authenticated:
@@ -81,31 +84,55 @@ def login_user(request):
 
 
 def register(request):
-        if request.user.is_authenticated:
-            return redirect('dashboard')
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    else:
+        if request.method == "POST":
+            form = RegisterForm(request.POST, request.FILES)
+            if form.is_valid():
+                user = form.save(commit=False)
+                user.username = user.username.lower()
+                user.save()
+                messages.info(request, "Account was created for " + form.cleaned_data.get('username'))
+                login(request, user)
+                return redirect('dashboard')
+            else:
+                # Handle the case when the form is not valid
+                context = {"form": form}
+                return render(request, "LbfApp/register.html", context)
         else:
+            # Handle the case when it's a GET request
             form = RegisterForm()
-            if request.method == "POST":
-                form = RegisterForm(request.POST,request.FILES)
-                if form.is_valid():
-                    user = form.save(commit=False)
-                    user.username = user.username.lower()
-                    user.save()
-                    messages.info(request, "Account was create for " + form.cleaned_data.get('username'))
-                    login(request, user)
-                    return redirect('dashboard')
-                else:
-                    error_message = "Invalid Credentials or Format" 
-                    context = {"error_message":error_message}   
-
-            context = {"form":form}  
-            return render(request,"LbfApp/register.html",context)
+        
+        context = {"form": form}
+        return render(request, "LbfApp/register.html", context)
+    
+def  item_detail(request, pk):
+    item = Item.objects.get(id = pk)
+    context = {'item':item}
+    return render(request, 'LbfApp/details.html', context)
 
 def logout_user(request):
     logout(request)
 
     return redirect('dashboard')
 
+def all_items(request):
+    if request.method == "GET":
+        q = request.GET.get('q')
+
+        if q is not None:
+            q = q
+        else:
+            q = ''
+
+    items = Item.objects.filter(
+        Q(status='missing') & (Q(name__icontains=q) | Q(location_found__icontains=q) | Q(description__icontains=q))
+    )
+    retrieved_items = Item.objects.filter(status='retrieved')
+
+    context = {'items':items, 'retrieved_items':retrieved_items}
+    return render(request,"LbfApp/dashboard.html",context)
 
 @login_required(login_url='/login')
 def edit_profile(request):
@@ -114,4 +141,6 @@ def edit_profile(request):
 @login_required(login_url='/login')
 def settings(request):
     return render(request,"LbfApp/settings.html")
+
+
 

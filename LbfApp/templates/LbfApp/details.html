@@ -7,10 +7,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Profile</title>
+	<title>Item Details</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{% static '/css/profile.css' %}">
+	<link rel="stylesheet" href="{% static '/css/details.css' %}">
 </head>
 
 <body>
@@ -23,7 +23,7 @@
 		</div>
 
 		<div class="message">
-            <h5>{{user.username}}</h5>
+			<h5>{{user.username}}</h5>
 			<!-- The profile which is also a link to the profile bar -->
             <div class="dp">
                 {%if user.is_authenticated %}
@@ -62,7 +62,7 @@
                         </div>
                     </a>
 
-                    <a href="{% url 'profile' %}" class="option-link">
+                    <a href="" class="option-link">
 					<div class="nav-option option6">
 						<h3>Settings &nbsp;<i class="fa fa-cog" aria-hidden="true"></i></h3>
 					</div>
@@ -85,38 +85,52 @@
 			</nav>
 		</div>
 
+
 		<div class="main">
 
 
 			<div class="profile-container">
 
 				<div class="profile-header">
-					<img src="{{user.profile_pic.url}}" alt="Profile Image">
-                    <h3>Edit Profile</h3>
+                    <h3>Item Details</h3>
+					<img src="{{item.image.url}}" alt="Profile Image">
 				</div>
 
 				<div class="profile-body">
 					
-                    <form action="" method = "POST" class="form" enctype = "multipart/form-data">
-                        {% if form.errors %}<p style="color:red; font-size:15px;"> <br>Invalid Details</p><span class="main-heading " style="color:red; font-size:15px;">{{form.errors}} </span>{% else %} <span class="main-heading "><span class="highlight-text">{% endif %}</span></span>
-                        {% csrf_token %}
-                        {% for fields in form  %}
-						<div class="field name">
-						  <div class="input-area">
-							{{fields}}
-							<i class="icon "></i>
-						  </div>
-						</div>
-                        {% endfor %}
-						<div class="button">
-							<input type="submit" value="Save">
-						</div>
+					<section action="#">
+						<label for="itemName">Item Name</label><br>
+						<div id="itemName">{{item.name}}</div>
 
-					  </form>
+						<label for="itemDescription">Item Description</label><br>
+						<div id="itemDescription">{{item.description}}</div>
+
+						<label for="contactEmail">Email/Mobile Number</label><br>
+						<div id="contactEmail">{{item.user.phone_number}} | {{item.user.email}} | {{item.contact}}</div>
+
+						<label for="location">Location Found</label><br>
+						<div id="location">{{item.location_found}}</div>
+						
+
+						<div class="button">
+							{% if item.user == request.user %}
+							<button type="submit" onclick="retrieveConfirmation()">Item Retrieved</button>
+							{% else %}
+							<a href ="{% url 'dashboard' %}"><button type="submit" href = "{% url 'dashboard' %}">Back</button></a>
+							{% endif %}
+						</div>
+						
+                    </section>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<div class="popup" id="retrieve-options">
+        <h2>Are you sure this item has been retrieved to the rightful owner?</h2>
+        <button onclick="location.href='{% url 'update_status' item.id %}'">Yes</button>
+        <button onclick="location.href='{% url 'item_detail' item.id %}'">No</button>
+    </div>
 
     <script>
         
@@ -126,6 +140,17 @@
         menuIcn.addEventListener("click", () => {
         nav.classList.toggle("navclose");
         })
+
+		function retrieveConfirmation() {
+        var retrieveContainer = document.querySelector(".main-container");
+        var popup = document.getElementById("retrieve-options");
+
+        // Add a blur class to the login container
+        retrieveContainer.classList.add("blur");
+
+        popup.style.display = "block";
+        
+    	}
     </script>
 </body>
 </html>
